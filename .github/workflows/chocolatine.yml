@@ -1,0 +1,25 @@
+name: Chocolatine Project
+
+on:
+    push:
+        branches-ignore:
+        - "ga-ignore-*"
+    pull_request:
+        branches-ignore:
+        - "ga-ignore-*"
+
+env:
+    MIRROR_URL: git@github.com:EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong.git
+    EXECUTABLES: pain_au_chocolat
+
+jobs:
+    check_coding_style:
+        name: "Coding style checker"
+        runs-on: ubuntu-latest
+        container:
+            image: ghcr.io/epitech/coding-style-checker:latest
+        steps:
+            - uses: actions/checkout@v4
+            - run: |
+                check.sh $(pwd) $(pwd)
+                echo coding-style-reports.log
