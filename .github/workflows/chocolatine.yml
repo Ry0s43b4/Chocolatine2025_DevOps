@@ -21,7 +21,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - run: |
-                coding-style $(pwd) $(pwd)
+                coding-style.sh $(pwd) $(pwd)
                 CODING_STYLE_ERRORS=$(coding-style-reports.log)
                 for ERRORS in $CODING_STYLE_ERRORS; do
                     array={echo $ERRORS}
