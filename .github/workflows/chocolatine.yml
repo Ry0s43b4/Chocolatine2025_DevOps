@@ -71,6 +71,7 @@ jobs:
               timeout-minutes: 2
 
     push_to_mirror:
+        needs: [check_program_compilation, run_tests, check_coding_style]
         name: "Push all the repo to the mirror one"
         runs-on: ubuntu-latest
         steps:
