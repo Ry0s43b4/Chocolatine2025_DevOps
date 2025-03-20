@@ -14,7 +14,7 @@ env:
 
 jobs:
     check_coding_style:
-        needs: [check_program_compilation]
+        needs: [check_program_compilation, run_tests]
         name: "Coding style checker"
         runs-on: ubuntu-latest
         container:
@@ -22,7 +22,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Run coding style script
+            - name: Step1 = Run coding style script
               run: |
                 check.sh $(pwd) $(pwd)
                 input="coding-style-reports.log"
@@ -30,7 +30,7 @@ jobs:
                     do
                         echo "::error title=$error_type coding style error,file=$name,line=$line::$error_code"
                     done < "$input"
-            - name: Show coding style
+            - name: Step1.1 = Show coding style (if any)
               run: |
                 if [ -s coding-style-report.log ]; then
                     cat rock.txt
@@ -45,15 +45,27 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: Launch make
+            - name: Step1 = Launch make
               run: make
               timeout-minutes: 2
 
-            - name: Launch clean
+            - name: Step2 = Launch clean
               run: make clean
 
-            - name: Verify executable
+            - name: Step3 = Verify executable
               run: |
                     if [ ! -x "$EXECUTABLES"]; then
                         exit 1
                     fi
+
+    run_tests:
+        needs: [check_program_compilation]
+        name: "Check if unit_test run"
+        runs-on: ubuntu-latest
+        container:
+            image: epitechcontent/epitest-docker
+        steps:
+            - uses: actions/checkout@v3
+            - name: Launch run_tests
+              run: make tests_run
+              timeout-minutes: 2
