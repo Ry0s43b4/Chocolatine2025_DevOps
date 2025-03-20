@@ -24,9 +24,9 @@ jobs:
                 check.sh $(pwd) $(pwd)
                 CODING_STYLE_ERRORS=$coding-style-reports.log
                 for ERRORS in $CODING_STYLE_ERRORS; do
-                    array=(echo $ERRORS)
+                    array={echo $ERRORS}
                     echo "::error file=${array[i]#./},title=${array[3]#./}, the followed coding style errors has been detected: ${array[2]#./}::${array[4]#./}"
-                "done"
+                done
                 if [[ -n $CODING_STYLE_ERRORS ]]
                 then
                     exit 1
