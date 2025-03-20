@@ -19,16 +19,16 @@ jobs:
         container:
             image: ghcr.io/epitech/coding-style-checker:latest
         steps:
+            - uses: actions/checkout@v3
             - run: |
-                coding-style.sh $(pwd) $(pwd)
-                CODING_STYLE_ERRORS=$(coding-style-reports.log)
-                for ERRORS in $CODING_STYLE_ERRORS; do
-                    array={echo $ERRORS}
-                    echo "::error file=${array[i]#./},title=${array[3]#./}, the followed coding style errors has been detected: ${array[2]#./}::${array[4]#./}"
-                done
-                if [[ -n $CODING_STYLE_ERRORS ]]
-                then
+                check.sh $(pwd) $(pwd)
+                input="coding-style-reports.log"
+                while IFS=":" read -r name line error_type error_code
+                    do
+                        echo "::error title=$error_type coding style error,file=$name,line=$line::$error_code"
+                    done < "$input"
+            - run: |
+                if [ -s coding-style-report.log ]; then
+                    cat honneur.txt
                     exit 1
-                else
-                    echo Clean code, no coding style errors detected
                 fi
