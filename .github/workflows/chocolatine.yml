@@ -29,6 +29,6 @@ jobs:
                     done < "$input"
             - run: |
                 if [ -s coding-style-report.log ]; then
-                    cat honneur.txt
+                    cat rock.txt
                     exit 1
                 fi
