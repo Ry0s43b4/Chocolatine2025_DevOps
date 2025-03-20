@@ -14,20 +14,48 @@ env:
 
 jobs:
     check_coding_style:
+        needs: [check_program_compilation]
         name: "Coding style checker"
         runs-on: ubuntu-latest
         container:
             image: ghcr.io/epitech/coding-style-checker:latest
         steps:
             - uses: actions/checkout@v3
-            - run: |
+
+            - name: Run coding style script
+              run: |
                 check.sh $(pwd) $(pwd)
                 input="coding-style-reports.log"
                 while IFS=":" read -r name line error_type error_code
                     do
                         echo "::error title=$error_type coding style error,file=$name,line=$line::$error_code"
                     done < "$input"
+            - name: Show coding style
+              run: |
                 if [ -s coding-style-report.log ]; then
                     cat rock.txt
                     exit 1
                 fi
+
+    check_program_compilation:
+        name: "Check if the program compile correctly"
+        runs-on: ubuntu-latest
+        container:
+            image: epitechcontent/epitest-docker
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Launch make
+              run: make
+              timeout-minutes: 2
+
+            - name: Launch clean
+              run: make clean
+
+            - name: Verify executable
+              run:
+                for i in $EXECUTABLES; do
+                    if [ ! -x "$i"]; then
+                        exit 1
+                    fi
+                done
