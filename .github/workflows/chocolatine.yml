@@ -53,8 +53,7 @@ jobs:
               run: make clean
 
             - name: Verify executable
-              run:
-                for i in $EXECUTABLES; do
-                    if [ ! -x "$i"]; then
+              run: |
+                    if [ ! -x "$EXECUTABLES"]; then
                         exit 1
                     fi
