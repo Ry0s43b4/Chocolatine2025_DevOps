@@ -1,5 +1,11 @@
+/*
+** EPITECH PROJECT, 2025
+** Mirror
+** File description:
+** main.c
+*/
 
-main(int, char **, char **)
+int main(int, char **, char **)
 {
     return 0;
 }
