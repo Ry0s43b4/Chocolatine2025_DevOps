@@ -34,8 +34,8 @@ jobs:
               run: |
                 if [ -s coding-style-report.log ]; then
                     cat rock.txt
-                    exit 1
                 fi
+                exit 1
 
     check_program_compilation:
         name: "Check if the program compile correctly"
@@ -84,3 +84,12 @@ jobs:
                     ${{ env.MIRROR_URL }}
                 ssh_private_key:
                     ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+
+    check_banned_function:
+        needs: [check_program_compilation, check_coding_style]
+        name: "Check if there is banned function(s)"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                    fetch-depth: 0
