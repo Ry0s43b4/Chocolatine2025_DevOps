@@ -37,7 +37,7 @@ jobs:
                     fi
 
     check_program_compilation:
-        if: ! github.repository == 'EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong.git'
+        if: github.repository == 'EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong.git'
         name: "Check if the program compile correctly"
         runs-on: ubuntu-latest
         container:
