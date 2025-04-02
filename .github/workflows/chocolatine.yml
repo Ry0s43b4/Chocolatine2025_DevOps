@@ -32,7 +32,7 @@ jobs:
                     done < "$input"
             - name: Step1.1 = Show coding style (if any)
               run:  |
-                    if [ -e coding-style-reports.log ]; then
+                    if [ -s coding-style-reports.log ]; then
                         exit 1
                     fi
 
