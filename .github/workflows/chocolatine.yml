@@ -37,7 +37,7 @@ jobs:
                     fi
 
     check_program_compilation:
-        if: startsWith(github.event.repository.name, 'EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong.git')
+        if: ${{ ! startsWith(github.repository, 'B-DOP-200-PAR-2-1-')  }}
         name: "Check if the program compile correctly"
         runs-on: ubuntu-latest
         container:
@@ -92,4 +92,4 @@ jobs:
         steps:
             - uses: actions/checkout@v4
               with:
-                    fetch-depth: 0
+                fetch-depth: 0
