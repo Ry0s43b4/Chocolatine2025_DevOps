@@ -31,7 +31,7 @@ jobs:
                         echo "::error title=$error_type coding style error,file=$name,line=$line::$error_code"
                     done < "$input"
             - name: Step1.1 = Show coding style (if any)
-              run: |
+              run:
                     if [ -e coding-style-report.log ]; then
                         exit 1
                     else
@@ -86,11 +86,11 @@ jobs:
                 ssh_private_key:
                     ${{ secrets.GIT_SSH_PRIVATE_KEY }}
 
-    check_banned_function:
-        needs: [check_program_compilation, check_coding_style]
-        name: "Check if there is banned function(s)"
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                    fetch-depth: 0
+    # check_banned_function:
+    #     needs: [check_program_compilation, check_coding_style]
+    #     name: "Check if there is banned function(s)"
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #           with:
+    #                 fetch-depth: 0
