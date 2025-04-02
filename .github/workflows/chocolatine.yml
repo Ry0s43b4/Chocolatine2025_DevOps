@@ -37,7 +37,7 @@ jobs:
                     fi
 
     check_program_compilation:
-        if: ${{ ! startsWith(github.repository, 'B-DOP-200-PAR-2-1-')  }}
+        if: ${{ ! startsWith(github.repository.name, 'B-DOP-200-PAR-2-1-')  }}
         name: "Check if the program compile correctly"
         runs-on: ubuntu-latest
         container:
