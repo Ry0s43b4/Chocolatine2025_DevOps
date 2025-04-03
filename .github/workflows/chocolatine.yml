@@ -14,7 +14,7 @@ env:
 
 jobs:
     check_coding_style:
-        needs: [check_program_compilation, run_tests]
+        if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong'
         name: "Coding style checker"
         runs-on: ubuntu-latest
         container:
@@ -37,7 +37,7 @@ jobs:
                     fi
 
     check_program_compilation:
-        if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-PAR-2-1-chocolatine-nicky.truong'
+        needs: [check_coding_style]
         name: "Check if the program compile correctly"
         runs-on: ubuntu-latest
         container:
@@ -62,7 +62,7 @@ jobs:
                     done
 
     run_tests:
-        needs: [check_program_compilation]
+        needs: [check_coding_style, check_program_compilation]
         name: "Check if unit_test run"
         runs-on: ubuntu-latest
         container:
@@ -74,7 +74,7 @@ jobs:
               timeout-minutes: 2
 
     push_to_mirror:
-        needs: [check_program_compilation, run_tests, check_coding_style, check_banned_function]
+        needs: [check_coding_style, check_program_compilation, run_tests]
         name: "Push all the repo to the mirror one"
         runs-on: ubuntu-latest
         steps:
@@ -87,12 +87,3 @@ jobs:
                     ${{ env.MIRROR_URL }}
                 ssh_private_key:
                     ${{ secrets.GIT_SSH_PRIVATE_KEY }}
-
-    check_banned_function:
-        needs: [check_program_compilation, check_coding_style]
-        name: "Check if there is banned function(s)"
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
