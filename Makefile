@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC=	main.c	\
+SRC=
 
 OBJ=	$(SRC:.c=.o)
 
