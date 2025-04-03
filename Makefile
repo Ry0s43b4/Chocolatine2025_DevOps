@@ -5,11 +5,11 @@
 ## Makefile
 ##
 
-SRC=
+SRC=	main.c	\
 
 OBJ=	$(SRC:.c=.o)
 
-NAME=	pain_au_chocolat
+NAME=	Chocolatine
 
 all:	$(NAME)
 
