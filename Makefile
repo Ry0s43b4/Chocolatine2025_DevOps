@@ -9,7 +9,7 @@ SRC=	main.c	\
 
 OBJ=	$(SRC:.c=.o)
 
-NAME=	Chocolatine
+NAME=	pain_au_chocolat
 
 all:	$(NAME)
 
