@@ -7,5 +7,5 @@
 
 int main(int, char **, char **)
 {
-    return 0
+    return 0;
 }

@@ -9,7 +9,7 @@ SRC=	main.c	\
 
 OBJ=	$(SRC:.c=.o)
 
-NAME=	pain_au_chocolat
+NAME=	Review_check
 
 all:	$(NAME)
 
